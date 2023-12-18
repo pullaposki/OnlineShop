@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopOnline.Api.Data;
 using ShopOnline.Api.Repositories.Contracts;
 using ShopOnline.Api.Repositories;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,12 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
+
+// In summary, this line of code configures the application to allow cross-origin requests
+// from “https://localhost:7232” and “http://localhost:7232”, using any HTTP method, and allowing the ‘Content-Type’ header.
+// This is typically done to allow a web application running at one origin to access select resources from a server at a different origin.
+app.UseCors(policy => policy.WithOrigins("https://localhost:7232", "http://localhost:7232").
+	AllowAnyMethod().WithHeaders(HeaderNames.ContentType));
 
 app.UseHttpsRedirection();
 
