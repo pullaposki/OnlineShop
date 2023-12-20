@@ -3,8 +3,8 @@ using ShopOnline.Api.Entities;
 
 namespace ShopOnline.Api.Data
 {
-	// This class plays a significant role in the ShopOnline.
-	// Api because it is a central part of interaction with the database, and seems to be using Code-First migrations
+	// This class plays a significant role in the ShopOnline.Api
+	// because it is a central part of interaction with the database, and seems to be using Code-First migrations
 	// (judging from the use of OnModelCreating override) to create and manage the database schema.
 	public class ShopOnlineDbContext : DbContext
 	{
