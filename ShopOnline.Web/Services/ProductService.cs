@@ -4,8 +4,10 @@ using System.Net.Http.Json;
 
 namespace ShopOnline.Web.Services
 {
+	// used to interact with a web API to retrieve product data.
 	public class ProductService : IProductService
 	{
+		// used to send HTTP requests and receive HTTP responses from a URI
 		private readonly HttpClient _httpClient;
 
 		public ProductService(HttpClient httpClient)
@@ -13,6 +15,8 @@ namespace ShopOnline.Web.Services
             _httpClient = httpClient;
         }
 
+		// returns a task of an enumerable collection of ProductDto objects.
+		// It sends a GET request to the “api/Product” endpoint
 		public async Task<IEnumerable<ProductDto>> GetItems()
 		{
 			try
@@ -39,6 +43,8 @@ namespace ShopOnline.Web.Services
 			}
 		}
 
+		// returns a task of a ProductDto object.
+		// It takes an integer id as a parameter, sends a GET request to the “api/Product/{id}” endpoint
 		public async Task<ProductDto> GetItem(int id)
 		{
 			try

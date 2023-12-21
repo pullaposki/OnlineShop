@@ -20,7 +20,7 @@ builder.Services.AddDbContextPool<ShopOnlineDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("ShopOnlineConnection")));
 
 
-// Here’s a breakdown:
+// Hereâ€™s a breakdown:
 // builder.Services: This accesses the Services property of the builder object,
 // which is an IServiceCollection. This is essentially a registry of all the services available
 // in your application.
@@ -34,6 +34,7 @@ builder.Services.AddDbContextPool<ShopOnlineDbContext>(options =>
 // which would create a single instance for the entire application, or AddTransient,
 // which would create a new instance every time one is requested.
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
 var app = builder.Build();
 
@@ -45,7 +46,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // In summary, this line of code configures the application to allow cross-origin requests
-// from “https://localhost:7232” and “http://localhost:7232”, using any HTTP method, and allowing the ‘Content-Type’ header.
+// from â€œhttps://localhost:7232â€ and â€œhttp://localhost:7232â€, using any HTTP method, and allowing the â€˜Content-Typeâ€™ header.
 // This is typically done to allow a web application running at one origin to access select resources from a server at a different origin.
 app.UseCors(policy => policy.WithOrigins("https://localhost:7232", "http://localhost:7232").
 	AllowAnyMethod().WithHeaders(HeaderNames.ContentType));

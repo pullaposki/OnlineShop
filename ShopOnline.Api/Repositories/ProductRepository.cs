@@ -5,6 +5,8 @@ using ShopOnline.Api.Repositories.Contracts;
 
 namespace ShopOnline.Api.Repositories
 {
+	// The methods in this class can be used in other parts of the application
+	// to retrieve product and product category data from the database.
 	public class ProductRepository : IProductRepository
 	{
 		ShopOnlineDbContext _shopOnlineDbContext;

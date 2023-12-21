@@ -313,6 +313,7 @@ namespace ShopOnline.Api.Data
 			});
 		}
 
+		// The DbSet properties in this class provide access to the collections of entities in the database.
 		public DbSet<Cart> Carts { get; set; }
 		public DbSet<CartItem> CartItems { get; set; }
 		public DbSet<Product> Products { get; set; }
