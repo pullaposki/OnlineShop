@@ -40,8 +40,12 @@ public class ShoppingCartRepository : IShoppingCartRepository
 
     async Task<bool> CartItemExists(int cartId, int productId)
     {
-        return await _shopOnlineDbContext.CartItems.AnyAsync(
+        // The method uses the LINQ extension method AnyAsync,
+        // which checks if any element in a sequence satisfies a given condition.
+        var cartItemExists = await _shopOnlineDbContext.CartItems.AnyAsync(
             c => c.CartId == cartId && c.ProductId == productId);
+        
+        return cartItemExists;
     }
 
     public Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)

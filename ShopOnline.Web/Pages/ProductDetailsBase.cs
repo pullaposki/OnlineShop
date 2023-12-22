@@ -12,6 +12,9 @@ public class ProductDetailsBase : ComponentBase
     [Inject]
     public IProductService ProductService { get; set; }
     
+    [Inject]
+    public IShoppingCartService ShoppingCartService { get; set; }
+    
     public ProductDto Product { get; set; }
     
     public string ErrorMessage { get; set; }
@@ -25,6 +28,20 @@ public class ProductDetailsBase : ComponentBase
         catch (Exception e)
         {
             ErrorMessage = e.Message;
+        }
+    }
+
+    protected async Task AddToCartClick(CartItemToAddDto cartItemToAddDto)
+    {
+        try
+        {
+            var cartItemDto = await ShoppingCartService.AddItem(cartItemToAddDto);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 }
