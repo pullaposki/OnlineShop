@@ -75,20 +75,37 @@ public class ShoppingCartRepository : IShoppingCartRepository
 
     public async Task<IEnumerable<CartItem>> GetItems(int userId)
     {
-        return await 
-            //Each Cart in Carts is referred to as cart in the rest of the query.
-            (from cart in _shopOnlineDbContext.Carts
-                
-                // This joins the Carts with the CartItems DbSet on the condition
-                // that the Id of the cart equals the CartId of the cartItem
+        var cartId = await GetCartId(userId);
+        
+        var query = (from cart in _shopOnlineDbContext.Carts
             join cartItem in _shopOnlineDbContext.CartItems on cart.Id equals cartItem.CartId
-            where cart.UserId == userId
+            where cart.Id == cartId
             select new CartItem
             {
                 Id = cartItem.Id,
                 ProductId = cartItem.ProductId,
                 Qty = cartItem.Qty,
                 CartId = cartItem.CartId
-            }).ToListAsync();
+            });
+
+        return await query.ToListAsync();
+
+        // return await (from cart in _shopOnlineDbContext.Carts
+        //     join cartItem in _shopOnlineDbContext.CartItems
+        //         on cart.Id equals cartItem.CartId
+        //     where cart.UserId == userId
+        //     select new CartItem
+        //     {
+        //         Id = cartItem.Id,
+        //         ProductId = cartItem.ProductId,
+        //         Qty = cartItem.Qty,
+        //         CartId = cartItem.CartId
+        //     }).ToListAsync();
+    }
+
+    async Task<int> GetCartId(int userId)
+    {
+        var cart = await _shopOnlineDbContext.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
+        return cart?.Id ?? 0;
     }
 }
